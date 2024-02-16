@@ -35,7 +35,7 @@ class KspbugSpec extends Specification {
 //        beanTwo.value == 'value-two'
 //    }
 
-    void 'should load each bean for propperty'() {
+    void 'loads when using interface'() {
         when:
         def beans = application.getApplicationContext().getBeansOfType(MyInterfaceImplEachProperty)
 
@@ -49,4 +49,15 @@ class KspbugSpec extends Specification {
         beanTwo.value == 'value-two'
     }
 
+    void 'loads when using abstract class with not overrides'() {
+        when:
+        def beans = application.getApplicationContext().getBeansOfType(MyAbstractClassBlandImpl)
+
+        then:
+        beans.size() == 2
+        def beanOne = beans.find{ it.name == 'one' }
+        beanOne.value == 'value-one'
+        def beanTwo = beans.find{ it.name == 'two' }
+        beanTwo.value == 'value-two'
+    }
 }

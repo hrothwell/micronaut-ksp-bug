@@ -43,3 +43,14 @@ open class MyInterfaceImplEachProperty @ConfigurationInject constructor(
 }
 
 
+// If we don't override any abstract values in the abstract class, things work fine
+
+abstract class MyAbstractClassBland(
+  val value: String
+)
+
+@EachProperty(value = "foo")
+class MyAbstractClassBlandImpl @ConfigurationInject constructor(
+  @Parameter("name") val name: String,
+  value: String
+): MyAbstractClassBland(value = value)
