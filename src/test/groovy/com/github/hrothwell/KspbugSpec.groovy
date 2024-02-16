@@ -13,7 +13,7 @@ class KspbugSpec extends Specification {
 
     void 'loads singleton'() {
         when:
-        def bean = application.getApplicationContext().getBean(FooImplSingleton)
+        def bean = application.getApplicationContext().getBean(MyAbstractClassImplSingleton)
 
         then:
         bean.thing == 'thing'
@@ -23,7 +23,7 @@ class KspbugSpec extends Specification {
     // Test not passable as KSP errors
 //    void 'should load each bean for propperty'() {
 //        when:
-//        def beans = application.getApplicationContext().getBeansOfType(FooImplEachProperty)
+//        def beans = application.getApplicationContext().getBeansOfType(MyAbstractClassImplEachProperty)
 //
 //        then:
 //        beans.size() == 2
@@ -31,8 +31,22 @@ class KspbugSpec extends Specification {
 //        beanOne.thing == 'thing'
 //        beanOne.value == 'value-one'
 //        def beanTwo = beans.find{ it.name == 'two' }
-//        beanOne.thing == 'thing'
-//        beanOne.value == 'value-two'
+//        beanTwo.thing == 'thing'
+//        beanTwo.value == 'value-two'
 //    }
+
+    void 'should load each bean for propperty'() {
+        when:
+        def beans = application.getApplicationContext().getBeansOfType(MyInterfaceImplEachProperty)
+
+        then:
+        beans.size() == 2
+        def beanOne = beans.find{ it.name == 'one' }
+        beanOne.thing == 'thing'
+        beanOne.value == 'value-one'
+        def beanTwo = beans.find{ it.name == 'two' }
+        beanTwo.thing == 'thing'
+        beanTwo.value == 'value-two'
+    }
 
 }
