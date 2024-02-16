@@ -11,9 +11,28 @@ class KspbugSpec extends Specification {
     @Inject
     EmbeddedApplication<?> application
 
-    void 'test it works'() {
-        expect:
-        application.running
+    void 'loads singleton'() {
+        when:
+        def bean = application.getApplicationContext().getBean(FooImplSingleton)
+
+        then:
+        bean.thing == 'thing'
+        bean.value == 'value-one'
     }
+
+    // Test not passable as KSP errors
+//    void 'should load each bean for propperty'() {
+//        when:
+//        def beans = application.getApplicationContext().getBeansOfType(FooImplEachProperty)
+//
+//        then:
+//        beans.size() == 2
+//        def beanOne = beans.find{ it.name == 'one' }
+//        beanOne.thing == 'thing'
+//        beanOne.value == 'value-one'
+//        def beanTwo = beans.find{ it.name == 'two' }
+//        beanOne.thing == 'thing'
+//        beanOne.value == 'value-two'
+//    }
 
 }
