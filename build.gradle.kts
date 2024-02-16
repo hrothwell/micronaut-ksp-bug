@@ -1,7 +1,10 @@
+// flip all KSP / KAPT to test one or the other
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.22"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.9.22"
     id("com.google.devtools.ksp") version "1.9.22-1.0.17"
+//    id("org.jetbrains.kotlin.kapt") version "1.9.22"
     id("groovy") 
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.3.2"
@@ -19,6 +22,10 @@ repositories {
 dependencies {
     ksp("io.micronaut:micronaut-http-validation")
     ksp("io.micronaut.serde:micronaut-serde-processor")
+
+//    kapt("io.micronaut:micronaut-http-validation")
+//    kapt("io.micronaut.serde:micronaut-serde-processor")
+
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
