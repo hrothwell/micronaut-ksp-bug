@@ -30,7 +30,7 @@ class ScheduledExample(
 class NoAbstractInvolved(
     // if private it cannot compile
     @Value("\${my.cron}")
-//    private val cron: String,
+    private val cron: String,
     // if non-private it can be found but has same error as abstract
 //    protected val cron: String,
 ){
