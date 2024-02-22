@@ -1,4 +1,1 @@
-
-
-rootProject.name="kspbug"
-
+rootProject.name="micronaut-demo"
