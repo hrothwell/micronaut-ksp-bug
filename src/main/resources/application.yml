@@ -1,6 +1,2 @@
-micronaut.application.name: kspbug
-foo:
-  one:
-    value: value-one
-  two:
-    value: value-two
+micronaut.application.name: micronaut-demo
+my.cron: '0 0/1 * * * ?'
