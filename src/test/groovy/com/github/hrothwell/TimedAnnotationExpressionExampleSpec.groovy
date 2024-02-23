@@ -22,7 +22,7 @@ class TimedAnnotationExpressionExampleSpec extends Specification{
         callMe.doSomething()
 
         then:
-        def meter = meterRegistry.getMeters().find{it.id.name == "my_metric" }
+        def meter = meterRegistry.getMeters().find{it.id.name == "TimedAnnotationExpressionExample" }
         meter.id.tags.contains("TimedAnnotationExpressionExample.doSomething")
     }
 }
