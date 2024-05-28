@@ -1,6 +1,7 @@
-micronaut.application.name: kspbug
-foo:
-  one:
-    value: value-one
-  two:
-    value: value-two
+micronaut:
+  application:
+    name: micronaut-demo
+  http:
+    services:
+      foo:
+        url: http://localhost:8081
