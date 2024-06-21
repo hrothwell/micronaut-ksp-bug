@@ -10,22 +10,12 @@ import io.micronaut.runtime.context.scope.ThreadLocal
 import jakarta.inject.Singleton
 import kotlin.reflect.KClass
 
-/**
- * This should be implemented on ThreadLocal beans only
- */
 interface ThreadLocalRefreshable {
-  /**
-   * refreshes the state of impl. Won't re-inject anything,
-   * so in the case that that is desired maybe the bean could simply be destroyed and recreated? That would likely
-   * also remove the need for mutating internal values of the bean (my use case focused mostly around date times at time of
-   * processing kafka batch messages starting)
-   */
   fun refresh()
 }
 
-
 /**
- * Refreshes thread local beans of specific types at the time of this function getting called
+ * Refreshes thread local beans of specific types. Does not recreate the beans
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
@@ -48,6 +38,7 @@ class RefreshThreadLocalInterceptor(
     return context?.proceed()
   }
 
+    // TODO I feel like this coule be simpler
   private fun refreshBeans(annotationData: AnnotationMetadata) {
     val beanTypes =
       annotationData.classValues<ThreadLocalRefreshable>(RefreshesThreadLocal::class.java, "beans").toList()
@@ -69,7 +60,7 @@ class ThreadLocalRefreshableValue : ThreadLocalRefreshable {
   }
 
   // We should see that "thread" stays the same while "random" updates, whether this is done via
-  // the current "refresh" or destroying and recreating it (probably the ideal solution for supporting DI?)
+  // the current "refresh" or destroying and recreating it (probably the ideal solution for supporting DI)
   fun getCurrentValues(): Map<String, String> {
     return mapOf("thread" to thread, "number" to "$number")
   }
