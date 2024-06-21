@@ -38,7 +38,7 @@ class RefreshThreadLocalInterceptor(
     return context?.proceed()
   }
 
-    // TODO I feel like this coule be simpler
+  // TODO I feel like this coule be simpler
   private fun refreshBeans(annotationData: AnnotationMetadata) {
     val beanTypes =
       annotationData.classValues<ThreadLocalRefreshable>(RefreshesThreadLocal::class.java, "beans").toList()
